@@ -1,0 +1,569 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="my-main-container row">
+  <!-- Banner -->
+  <div class="sec-banner bg0 col-lg-4">
+    <div class="flex-w flex-c-m" style="padding: 0 30px;">
+      <div class="block2-pic hov-img0" style="height: 250px;">
+        <img src="{{item.item_images.first.image.url}}" alt="IMG-PRODUCT" />
+
+        <a
+          href="#"
+          class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
+        >
+          Quick View
+        </a>
+      </div>
+      <div class="p-b-30" style="padding: 30px 0 0 0">
+        <div class="p-r-50 p-t-5 p-lr-0-lg" style="padding:0 0 15px 0;">
+          {{item.category.category}}
+          <h3 class="ltext-105 cl5 respon1" style="font-size:35px;">
+            {{item.item_name}}
+          </h3>
+          <div
+            class="flex-w flex-t p-b-68"
+            style="padding:10px 0 0 0; vertical-align: middle; cursor:pointer;"
+          >
+            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+              <img src="{{item.seller.image.url}}" alt="Avatar" height="40px" />
+            </div>
+
+            <div class="size-207">
+              <div
+                class="flex-w flex-sb-m p-b-17"
+                style="justify-content: normal; padding-bottom:7px !important;"
+              >
+                <span
+                  class="mtext-107 cl2 p-r-20 seller"
+                  style="font-size:20px;"
+                >
+                  {{item.seller.first_name}} {{item.seller.last_name}}
+                </span>
+
+                <span class="fs-18 cl11">
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star-half"></i>
+                  <i class="zmdi zmdi-star-outline"></i>
+                </span>
+              </div>
+              <p>
+                <span class="tag">Seller</span>
+              </p>
+            </div>
+          </div>
+          <h4
+            class="mtext-105 cl2 js-name-detail p-b-14"
+            style="padding: 14px 0 0 0;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 20px;
+                font-weight: 600;"
+          >
+            Condition
+          </h4>
+          <ul class="pdp__condition-slider">
+            <li
+              class="pdp__condition-item {% if item.condition == '1' %}pdp__condition-item--selected{% endif %}"
+            >
+              Fair
+            </li>
+            <li
+              class="pdp__condition-item {% if item.condition == '2' %}pdp__condition-item--selected{% endif %}"
+            >
+              Good
+            </li>
+            <li
+              class="pdp__condition-item {% if item.condition == '3' %}pdp__condition-item--selected{% endif %}"
+            >
+              Very Good
+            </li>
+            <li
+              class="pdp__condition-item {% if item.condition == '4' %}pdp__condition-item--selected{% endif %}"
+            >
+              Great
+            </li>
+            <li
+              class="pdp__condition-item {% if item.condition == '5' %}pdp__condition-item--selected{% endif %}"
+            >
+              Excellent
+            </li>
+            <li
+              class="pdp__condition-item {% if item.condition == '6' %}pdp__condition-item--selected{% endif %}"
+            >
+              Pristine
+            </li>
+          </ul>
+          <!--  -->
+          <div class="p-t-33" style="padding:0;">
+            <div
+              class="flex-w flex-r-m p-b-10"
+              style="display:grid; grid-template-columns: 1fr 1fr; grid-gap:30px;"
+            >
+              <div class="size-204 flex-w flex-m respon6-next">
+                <button
+                  class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+                >
+                  View Details
+                </button>
+              </div>
+              <div class="size-204 flex-w flex-m respon6-next">
+                <button
+                  class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04 js-addcart-detail"
+                  style="
+                      border-color: #fff;
+                      background-color: #fff;
+                      color: #717fe0;
+                      border: solid 2px #717fe0;"
+                >
+                  + Watch List
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->
+          <div
+            class="flex-w flex-m p-l-100 p-t-40 respon7"
+            style="padding-top: 10px;"
+          >
+            <div class="flex-m bor9 p-r-10 m-r-11">
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                data-tooltip="Add to Wishlist"
+              >
+                <i class="zmdi zmdi-favorite"></i>
+              </a>
+            </div>
+
+            <a
+              href="#"
+              class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+              data-tooltip="Facebook"
+            >
+              <i class="fa fa-facebook"></i>
+            </a>
+
+            <a
+              href="#"
+              class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+              data-tooltip="Twitter"
+            >
+              <i class="fa fa-twitter"></i>
+            </a>
+
+            <a
+              href="#"
+              class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+              data-tooltip="Google Plus"
+            >
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Bidding Window-->
+  <div class="bidding-window col-lg-8" style="padding: 0 30px;">
+    <div class="window-header">
+      <span
+        style="font-size:35px; font-weight:300!important;font-family: Poppins-Regular ;
+        line-height: 1.1;"
+      >
+        Bids
+      </span>
+
+      <!--Seller + Auction Info-->
+      <span class="auction-details" style="margin-right: 15px;">
+        <span class="info">
+          <span class="current-price">
+            <div class="my-label">Current Price</div>
+            <div class="value">
+              <img
+                src="{% static 'images/icons/rupee.svg' %}"
+                alt=""
+                height="30px"
+              />
+
+              <span
+                class="price"
+                style="font-size:35px; font-weight:300!important;font-family: Poppins-Medium;
+                line-height: 1.1;"
+              >
+                {{item.base_price}}
+              </span>
+            </div>
+          </span>
+          <span
+            class="end-in"
+            style="
+            border-left: 1px solid #e6e6e6; padding-left: 20px"
+          >
+            <div class="my-label">Auction ends in</div>
+            <div class="value">
+              <img
+                src="{% static 'images/icons/time-outline.svg' %}"
+                alt=""
+                height="30px"
+              />
+
+              <span
+                style="font-size:35px; font-weight:300!important;font-family: Poppins-Medium;
+                line-height: 1.1;"
+              >
+                03h 15m 03s
+              </span>
+            </div>
+          </span>
+        </span>
+      </span>
+    </div>
+
+    <div
+      class="my-main"
+      style="overflow-y:scroll; height: 65vh; overflow-x: hidden;"
+    ></div>
+    <div
+      class="control"
+      style="padding: 20px 0 0 0; display:grid; grid-template-columns: auto auto;"
+    >
+      <div class="wrap-num-product flex-w m-r-20 m-tb-10" style="width: 400px;">
+        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+          <i class="fs-16 zmdi zmdi-minus"></i>
+        </div>
+
+        <input
+          class="mtext-104 cl3 txt-center num-product"
+          id="chat-message-input"
+          type="number"
+          name="num-product"
+          value="{{item.base_price}}"
+        />
+
+        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+          <i class="fs-16 zmdi zmdi-plus"></i>
+        </div>
+      </div>
+      <div>
+        <button
+          class="chat-message-submit flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 "
+          style="margin: 10px;"
+        >
+          Place A Bid
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+  <div class="overlay-modal1 js-hide-modal1"></div>
+
+  <div class="container">
+    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+      <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+        <img src="{% static 'images/icons/icon-close.png' %}" alt="CLOSE" />
+      </button>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-7 p-b-30">
+          <div class="p-l-25 p-r-30 p-lr-0-lg">
+            <div class="wrap-slick3 flex-sb flex-w">
+              <div class="wrap-slick3-dots"></div>
+              <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+              <div class="slick3 gallery-lb">
+                {% for image in item.item_images.all %}
+                <div class="item-slick3" data-thumb="{{image.image.url}}">
+                  <div class="wrap-pic-w pos-relative">
+                    <img
+                      src="{% static 'images/product-detail-01.jpg' %}"
+                      alt="IMG-PRODUCT"
+                    />
+
+                    <a
+                      class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                      href="{% static 'images/product-detail-01.jpg' %}"
+                    >
+                      <i class="fa fa-expand"></i>
+                    </a>
+                  </div>
+                </div>
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-5 p-b-30">
+          <div class="p-r-50 p-t-5 p-lr-0-lg">
+            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+              {{item.item_name}}
+            </h4>
+
+            <span class="mtext-106 cl2">
+              ₹ {{item.current_price}}
+            </span>
+
+            <p class="stext-102 cl3 p-t-23">
+              {{item.description}}
+            </p>
+
+            <!--  -->
+            <div class="p-t-33">
+              <div class="flex-w flex-r-m p-b-10">
+                <div class="size-203 flex-c-m respon6">
+                  Size
+                </div>
+
+                <div class="size-204 respon6-next">
+                  <div class="rs1-select2 bor8 bg0">
+                    <select class="js-select2" name="time">
+                      <option>Choose an option</option>
+                      <option>Size S</option>
+                      <option>Size M</option>
+                      <option>Size L</option>
+                      <option>Size XL</option>
+                    </select>
+                    <div class="dropDownSelect2"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-w flex-r-m p-b-10">
+                <div class="size-203 flex-c-m respon6">
+                  Color
+                </div>
+
+                <div class="size-204 respon6-next">
+                  <div class="rs1-select2 bor8 bg0">
+                    <select class="js-select2" name="time">
+                      <option>Choose an option</option>
+                      <option>Red</option>
+                      <option>Blue</option>
+                      <option>White</option>
+                      <option>Grey</option>
+                    </select>
+                    <div class="dropDownSelect2"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-w flex-r-m p-b-10">
+                <div class="size-204 flex-w flex-m respon6-next">
+                  <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                    <div
+                      class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
+                    >
+                      <i class="fs-16 zmdi zmdi-minus"></i>
+                    </div>
+
+                    <input
+                      class="mtext-104 cl3 txt-center num-product"
+                      type="number"
+                      name="num-product"
+                      value="1"
+                    />
+
+                    <div
+                      class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
+                    >
+                      <i class="fs-16 zmdi zmdi-plus"></i>
+                    </div>
+                  </div>
+
+                  <button
+                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
+            <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+              <div class="flex-m bor9 p-r-10 m-r-11">
+                <a
+                  href="#"
+                  class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                  data-tooltip="Add to Wishlist"
+                >
+                  <i class="zmdi zmdi-favorite"></i>
+                </a>
+              </div>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Facebook"
+              >
+                <i class="fa fa-facebook"></i>
+              </a>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Twitter"
+              >
+                <i class="fa fa-twitter"></i>
+              </a>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Google Plus"
+              >
+                <i class="fa fa-google-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+
+<script>
+  var roomName = "{{ room_name|escapejs }}";
+  var user = "{{ user.first_name|escapejs }}";
+
+  var chatSocket = new ReconnectingWebSocket(
+    "ws://" + window.location.host + "/ws/room/" + roomName + "/"
+  );
+
+  chatSocket.onopen = function(e) {
+    fetchMessages();
+  };
+
+  chatSocket.onmessage = function(e) {
+    var data = JSON.parse(e.data);
+    console.log(data);
+    if (data["command"] === "messages") {
+      for (let i = 0; i < data["messages"].length; i++) {
+        var val = "false";
+        if (i == data["messages"].length - 1) val = "true";
+        createMessage(data["messages"][i], val);
+      }
+    } else if (data["command"] === "new_message") {
+      createMessage(data["message"], "true");
+    }
+  };
+
+  chatSocket.onclose = function(e) {
+    console.error("Chat socket closed unexpectedly");
+  };
+
+  //document.querySelector("#chat-message-input").focus();
+  document.querySelector("#chat-message-input").onkeyup = function(e) {
+    if (e.keyCode === 13) {
+      // enter, return
+      document.querySelector(".chat-message-submit").click();
+    }
+  };
+
+  document.querySelector(".chat-message-submit").onclick = function(e) {
+    var messageInputDom = document.querySelector("#chat-message-input");
+    var message = messageInputDom.value;
+    console.log(document.querySelector("#chat-message-input").value);
+    chatSocket.send(
+      JSON.stringify({
+        price: message,
+        command: "new_message",
+        from: "{{user.email}}",
+        auction_id: roomName
+      })
+    );
+
+    messageInputDom.value = parseInt(message) + 10;
+  };
+
+  function fetchMessages() {
+    chatSocket.send(
+      JSON.stringify({ command: "fetch_messages", roomName: roomName })
+    );
+  }
+
+  function createMessage(data, val) {
+    var sender = data["sender"];
+    var container = document.createElement("div");
+    container.classList.add("flex-w", "flex-t", "p-b-68");
+    container.style.padding = "10px 0 0 0";
+    container.style.margin = "18px";
+    container.style.verticalAlign = "middle";
+
+    var msgListTag = document.createElement("div");
+    msgListTag.classList.add(
+      "wrap-pic-s",
+      "size-109",
+      "bor0",
+      "of-hidden",
+      "m-r-18",
+      "m-t-6"
+    );
+    msgListTag.style.marginRight = "30px";
+
+    var imgTag = document.createElement("img");
+    imgTag.src = data["profile_image"];
+    imgTag.alt = "Avatar";
+    //imgTag.height = "25px";
+    msgListTag.appendChild(imgTag);
+
+    var container1 = document.createElement("div");
+    container1.className = "size-207";
+    container1.style.paddingLeft = "0";
+    container1.style.width = "calc(100% - 130px)";
+
+    var container2 = document.createElement("div");
+    container2.classList.add("flex-w", "flex-sb-m", "p-b-17");
+
+    var senderTag = document.createElement("span");
+    senderTag.classList.add("mtext-107", "cl2", "p-r-20");
+    senderTag.style.fontSize = "25px";
+    senderTag.textContent = data["sender"];
+
+    var timeTag = document.createElement("div");
+    timeTag.className = "timestamp";
+    timeTag.textContent = data.timestamp;
+
+    var priceTag = document.createElement("span");
+    priceTag.className = "tag";
+    priceTag.style.fontSize = "18px";
+    priceTag.textContent = "₹ " + data["price"];
+
+    senderTag.appendChild(timeTag);
+
+    container2.appendChild(senderTag);
+    container2.appendChild(priceTag);
+
+    container1.appendChild(container2);
+
+    container.appendChild(msgListTag);
+    container.appendChild(container1);
+
+    document
+      .querySelector(".my-main")
+      .insertBefore(container, document.querySelector(".my-main").firstChild);
+
+    if (val) {
+      document.querySelector(".price").textContent = data["price"];
+      document.querySelector("#chat-message-input").value =
+        parseInt(data["price"]) + 10;
+      console.log(data["id"], parseInt("{{user.id}}"));
+      if (data["id"] == parseInt("{{user.id}}")) {
+        document.querySelector(".chat-message-submit").disabled = true;
+      } else {
+        console.log("hello");
+        document.querySelector(".chat-message-submit").disabled = false;
+      }
+    }
+  }
+</script>
+{% endblock script %}

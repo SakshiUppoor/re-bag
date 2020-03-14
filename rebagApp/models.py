@@ -4,6 +4,9 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.conf import settings
 from django.core.validators import RegexValidator
+from django.db.models.signals import pre_save, post_save
+from django.utils.text import slugify
+from django.dispatch import receiver
 
 
 class UserManager(BaseUserManager):
@@ -11,7 +14,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("Email required")
         if not password:
-            raise ValuError("Password required")
+            raise ValueError("Password required")
 
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -57,48 +60,91 @@ class Category(models.Model):
     category = models.CharField(unique=True, max_length=30)
 
 
-class Subcategory(models.Model):
-    subcategory = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-
 class Item(models.Model):
     STATUS = [('1', 'Available'), ('2', 'Payment Due'),
               ('3', 'Payment Complete'), ('4', 'Delivered')]
+    CONDITION_CHOICES = [
+        ('1', 'Fair'),
+        ('2', 'Good'),
+        ('3', 'Very Good'),
+        ('4', 'Great'),
+        ('5', 'Excellent'),
+        ('6', 'Pristine'),
+    ]
     item_name = models.CharField(max_length=100)
     item_description = models.TextField()
-    slug = models.SlugField()
-    base_price = models.FloatField(default=0.0)
-    current_price = models.FloatField(default=0.0)
+    condition = models.CharField(
+        max_length=1, choices=CONDITION_CHOICES, default="1")
+    slug = models.SlugField(blank=True, null=True)
+    base_price = models.IntegerField(default=0.0)
+    current_price = models.IntegerField(default=0.0)
     seller = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True, related_name='seller')
     buyer = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True, related_name='buyer')
-    shipping_address = models.TextField()
-    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
+    shipping_address = models.TextField(blank=True, null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(choices=STATUS, default="1", max_length=20)
+
+    def __str__(self):
+        return self.item_name
 
 
 class Image(models.Model):
     image = models.ImageField(
         default='item_images/itemimage.jpg', upload_to='item_images')
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        Item, on_delete=models.CASCADE, related_name="item_images")
 
 
 class Auction(models.Model):
-    time = models.DateTimeField(auto_now_add=True)
-    item = models.OneToOneField(Item, on_delete=models.CASCADE)
-    cap_time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=False)
+    item = models.OneToOneField(
+        Item, on_delete=models.CASCADE, related_name="item")
+    cap_time = models.DateTimeField(auto_now_add=False)
 
 
 class Message(models.Model):
-    auction = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    auction = models.ForeignKey(
+        Auction, on_delete=models.CASCADE, related_name="auction")
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    anon_name = models.CharField(max_length=20)
-    raised_by = models.FloatField(default=0)
+    price = models.IntegerField(default=0)
     time_stamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.sender.first_name + str(self.price)
 
 
 class CustomerCare(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     query = models.TextField()
+
+#############
+# RECEIVERS #
+#############
+
+
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.item_name)
+    if new_slug is not None:
+        slug = new_slug
+    qs = Item.objects.filter(slug=slug).order_by("id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" % (slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+
+@receiver(pre_save, sender=Item)
+def pre_save_item_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance)
+
+
+@receiver(pre_save, sender=Message)
+def pre_save_current_price_updater(sender, instance, *args, **kwargs):
+    item = instance.auction.item
+    item.current_price = instance.price
+    item.save()
