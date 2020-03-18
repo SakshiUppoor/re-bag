@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from datetime import timedelta
 from .forms import *
 # Create your views here.
 
@@ -25,9 +26,18 @@ def createProduct(request):
 def room(request, room_name):
     auction = Auction.objects.get(id=room_name)
     item = auction.item
-    print(item.item_images.first())
+    cart = Item.objects.filter(buyer=request.user)
+    d = auction.cap_time
+    print(d.strftime('%H:%M'))
     return render(request, 'auction.html', {
+        'auction': auction,
         'room_name': room_name,
         'user': request.user,
         'item': item,
+        'deadline': auction.cap_time,
+        'cart': cart,
     })
+
+
+def home(request):
+    return render(request, "base.html")

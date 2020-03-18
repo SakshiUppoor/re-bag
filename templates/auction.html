@@ -17,7 +17,10 @@
       <div class="p-b-30" style="padding: 30px 0 0 0">
         <div class="p-r-50 p-t-5 p-lr-0-lg" style="padding:0 0 15px 0;">
           {{item.category.category}}
-          <h3 class="ltext-105 cl5 respon1" style="font-size:35px;">
+          <h3
+            class="ltext-105 cl5 respon1 js-name-detail "
+            style="font-size:35px;"
+          >
             {{item.item_name}}
           </h3>
           <div
@@ -54,7 +57,7 @@
             </div>
           </div>
           <h4
-            class="mtext-105 cl2 js-name-detail p-b-14"
+            class="mtext-105 cl2 p-b-14"
             style="padding: 14px 0 0 0;
                 text-transform: uppercase;
                 letter-spacing: 2px;
@@ -212,10 +215,10 @@
               />
 
               <span
+                id="demo"
                 style="font-size:35px; font-weight:300!important;font-family: Poppins-Medium;
                 line-height: 1.1;"
               >
-                03h 15m 03s
               </span>
             </div>
           </span>
@@ -280,14 +283,11 @@
                 {% for image in item.item_images.all %}
                 <div class="item-slick3" data-thumb="{{image.image.url}}">
                   <div class="wrap-pic-w pos-relative">
-                    <img
-                      src="{% static 'images/product-detail-01.jpg' %}"
-                      alt="IMG-PRODUCT"
-                    />
+                    <img src="{{image.image.url}}" alt="IMG-PRODUCT" />
 
                     <a
                       class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                      href="{% static 'images/product-detail-01.jpg' %}"
+                      href="{{image.image.url}}"
                     >
                       <i class="fa fa-expand"></i>
                     </a>
@@ -302,90 +302,67 @@
 
         <div class="col-md-6 col-lg-5 p-b-30">
           <div class="p-r-50 p-t-5 p-lr-0-lg">
-            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+            <h4
+              class="mtext-105 cl2 js-name-detail p-b-14"
+              style="font-size:40px; font-weight:700;"
+            >
               {{item.item_name}}
             </h4>
 
-            <span class="mtext-106 cl2">
-              ₹ {{item.current_price}}
+            <span class="mtext-106 cl2" style="font-weight: 400;">
+              Current Price: ₹ {{item.current_price}}
             </span>
 
             <p class="stext-102 cl3 p-t-23">
-              {{item.description}}
+              {{item.item_description |truncatechars:140}}
+              {% if item.item_description|length > 140 %}<a href="#">Read More</a>{% endif %}
             </p>
 
             <!--  -->
-            <div class="p-t-33">
-              <div class="flex-w flex-r-m p-b-10">
-                <div class="size-203 flex-c-m respon6">
-                  Size
-                </div>
-
-                <div class="size-204 respon6-next">
-                  <div class="rs1-select2 bor8 bg0">
-                    <select class="js-select2" name="time">
-                      <option>Choose an option</option>
-                      <option>Size S</option>
-                      <option>Size M</option>
-                      <option>Size L</option>
-                      <option>Size XL</option>
-                    </select>
-                    <div class="dropDownSelect2"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex-w flex-r-m p-b-10">
-                <div class="size-203 flex-c-m respon6">
-                  Color
-                </div>
-
-                <div class="size-204 respon6-next">
-                  <div class="rs1-select2 bor8 bg0">
-                    <select class="js-select2" name="time">
-                      <option>Choose an option</option>
-                      <option>Red</option>
-                      <option>Blue</option>
-                      <option>White</option>
-                      <option>Grey</option>
-                    </select>
-                    <div class="dropDownSelect2"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex-w flex-r-m p-b-10">
-                <div class="size-204 flex-w flex-m respon6-next">
-                  <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                    <div
-                      class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
-                    >
-                      <i class="fs-16 zmdi zmdi-minus"></i>
-                    </div>
-
-                    <input
-                      class="mtext-104 cl3 txt-center num-product"
-                      type="number"
-                      name="num-product"
-                      value="1"
-                    />
-
-                    <div
-                      class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
-                    >
-                      <i class="fs-16 zmdi zmdi-plus"></i>
-                    </div>
-                  </div>
-
-                  <button
-                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                  >
-                    Add to cart
-                  </button>
-                </div>
-              </div>
+            <div class="condition-widget">
+              <h4
+                class="mtext-105 cl2 p-b-14"
+                style="padding: 14px 0 0 0;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 20px;
+                font-weight: 600;"
+              >
+                Condition
+              </h4>
+              <ul class="pdp__condition-slider" style="margin-right: 25px">
+                <li
+                  class="pdp__condition-item {% if item.condition == '1' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Fair
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '2' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Good
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '3' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Very Good
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '4' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Great
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '5' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Excellent
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '6' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Pristine
+                </li>
+              </ul>
             </div>
-
             <!--  -->
             <div class="flex-w flex-m p-l-100 p-t-40 respon7">
               <div class="flex-m bor9 p-r-10 m-r-11">
@@ -429,18 +406,146 @@
   </div>
 </div>
 
+<!-- Result Modal -->
+<div class="wrap-result-modal js-result-modal p-t-60 p-b-20">
+  <div class="overlay-result-modal js-hide-result-modal"></div>
+
+  <div class="container">
+    <div
+      class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent"
+      style="padding:30px 60px;"
+    >
+      <button class="how-pos3 hov3 trans-04 js-hide-result-modal">
+        <img src="{% static 'images/icons/icon-close.png' %}" alt="CLOSE" />
+      </button>
+
+      <div class="row" style="align-items:center;">
+        <div class="col-lg-7 p-b-30">
+          <div class="p-l-25 p-r-30 p-lr-0-lg">
+            <div class="wrap-slick3 flex-sb flex-w">
+              <img id="result-image" alt="" srcset="" width="100%" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 p-b-30">
+          <div id="result-container" class="p-r-50 p-t-5 p-lr-0-lg">
+            <h1 id="result-message" class="ltext-105 cl5 respon1">
+              Congrats!
+            </h1>
+            <div class="delivery" style="padding: 20px 0 15px 0;">
+              {{item.item_name}} is added to your inventory. Plase fill the
+              billing and order details.
+            </div>
+            <!--  -->
+            <div id="billing-form" class="p-t-33" style="padding-top:5px;">
+              <div class="flex-w flex-r-m p-b-10">
+                <br />
+                <div
+                  class="size-203 flex-c-m respon6"
+                  style="justify-content: normal;"
+                >
+                  Payment
+                </div>
+
+                <div class="size-204 respon6-next">
+                  <div class="rs1-select2 bor8 bg0">
+                    <select class="js-select2" name="time">
+                      <option>Choose an option</option>
+                      <option>Cash on Delivery</option>
+                      <option>Online Payment</option>
+                    </select>
+                    <div class="dropDownSelect2"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="flex-w flex-r-m p-b-10"
+                style="justify-content: normal !important;"
+              >
+                <div class="size-203 flex-c-m respon6">
+                  Billing Address
+                </div>
+                <div
+                  class="size-204 flex-w flex-m respon6-next"
+                  style="width: 100% !important;  padding-top: 10px;"
+                >
+                  <div class="bor19 m-b-20" style="width: 100%;">
+                    <textarea
+                      class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15"
+                      name="cmt"
+                      style="resize:none;"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <button
+                  class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+
+            <!--  -->
+            <div
+              id="result-socials"
+              class="flex-w flex-m p-l-100 p-t-40 respon7"
+            >
+              <div class="flex-m bor9 p-r-10 m-r-11">
+                <a
+                  href="#"
+                  class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                  data-tooltip="Add to Wishlist"
+                >
+                  <i class="zmdi zmdi-favorite"></i>
+                </a>
+              </div>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Facebook"
+              >
+                <i class="fa fa-facebook"></i>
+              </a>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Twitter"
+              >
+                <i class="fa fa-twitter"></i>
+              </a>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Google Plus"
+              >
+                <i class="fa fa-google-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %} {% block script %}
 
 <script>
   var roomName = "{{ room_name|escapejs }}";
   var user = "{{ user.first_name|escapejs }}";
-
+  var highestBidder;
   var chatSocket = new ReconnectingWebSocket(
     "ws://" + window.location.host + "/ws/room/" + roomName + "/"
   );
 
   chatSocket.onopen = function(e) {
     fetchMessages();
+    fetchItems();
   };
 
   chatSocket.onmessage = function(e) {
@@ -452,8 +557,26 @@
         if (i == data["messages"].length - 1) val = "true";
         createMessage(data["messages"][i], val);
       }
+    } else if (data["command"] === "items") {
+      var ul = document.querySelector(".header-cart-wrapitem");
+      ul.innerHTML = "";
+      var notifs = document.querySelectorAll("#cart-no");
+      notifs.forEach(function(notif) {
+        notif.setAttribute("data-notify", data["items"].length);
+      });
+      for (let i = 0; i < data["items"].length; i++) {
+        createCartItem(data["items"][i]);
+      }
     } else if (data["command"] === "new_message") {
       createMessage(data["message"], "true");
+    } else if (data["command"] === "new_item") {
+      createCartItem(data["item"]);
+
+      var notifs = document.querySelectorAll("#cart-no");
+      notifs.forEach(function(notif) {
+        var notify = notif.getAttribute("data-notify");
+        notif.setAttribute("data-notify", parseInt(notify) + 1);
+      });
     }
   };
 
@@ -472,7 +595,6 @@
   document.querySelector(".chat-message-submit").onclick = function(e) {
     var messageInputDom = document.querySelector("#chat-message-input");
     var message = messageInputDom.value;
-    console.log(document.querySelector("#chat-message-input").value);
     chatSocket.send(
       JSON.stringify({
         price: message,
@@ -487,7 +609,17 @@
 
   function fetchMessages() {
     chatSocket.send(
-      JSON.stringify({ command: "fetch_messages", roomName: roomName })
+      JSON.stringify({ command: "fetch_messages", auction_id: roomName })
+    );
+  }
+
+  function fetchItems() {
+    chatSocket.send(
+      JSON.stringify({
+        command: "fetch_items",
+        auction_id: roomName,
+        from: "{{user.email}}"
+      })
     );
   }
 
@@ -551,19 +683,216 @@
     document
       .querySelector(".my-main")
       .insertBefore(container, document.querySelector(".my-main").firstChild);
+    highestBidder = data["id"];
 
     if (val) {
       document.querySelector(".price").textContent = data["price"];
       document.querySelector("#chat-message-input").value =
         parseInt(data["price"]) + 10;
-      console.log(data["id"], parseInt("{{user.id}}"));
       if (data["id"] == parseInt("{{user.id}}")) {
         document.querySelector(".chat-message-submit").disabled = true;
       } else {
-        console.log("hello");
         document.querySelector(".chat-message-submit").disabled = false;
       }
     }
   }
+
+  function createCartItem(data) {
+    var ul = document.querySelector(".header-cart-wrapitem");
+    var li = document.createElement("li");
+    li.classList.add("header-cart-item", "flex-w", "flex-t", "m-b-12");
+    var imgDiv = document.createElement("div");
+    imgDiv.classList.add("header-cart-item-img");
+    var itemImg = document.createElement("img");
+    console.log(data);
+    itemImg.src = data["item_image"];
+    imgDiv.appendChild(itemImg);
+
+    var infoDiv = document.createElement("div");
+    infoDiv.classList.add("header-cart-item-txt", "p-t-8");
+    var a = document.createElement("a");
+    a.href = "#";
+    a.classList.add("header-cart-item-name", "m-b-18", "hov-cl1", "trans-04");
+    a.textContent = data["name"];
+    infoDiv.appendChild(a);
+
+    var span = document.createElement("span");
+    span.classList.add("header-cart-item-info");
+    span.textContent = "₹ ";
+
+    var span_price = document.createElement("span");
+    span_price.classList.add("cart-item-price")
+    span_price.textContent = data["price"];
+    span.appendChild(span_price);
+    infoDiv.appendChild(span);
+
+    li.appendChild(imgDiv);
+    li.appendChild(infoDiv);
+    console.log("appended!");
+    ul.appendChild(li);
+    updateTotal();
+
+    /*
+    var sender = data["sender"];
+    var container = document.createElement("div");
+    container.classList.add("flex-w", "flex-t", "p-b-68");
+    container.style.padding = "10px 0 0 0";
+    container.style.margin = "18px";
+    container.style.verticalAlign = "middle";
+
+    var msgListTag = document.createElement("div");
+    msgListTag.classList.add(
+      "wrap-pic-s",
+      "size-109",
+      "bor0",
+      "of-hidden",
+      "m-r-18",
+      "m-t-6"
+    );
+    msgListTag.style.marginRight = "30px";
+
+    var imgTag = document.createElement("img");
+    imgTag.src = data["profile_image"];
+    imgTag.alt = "Avatar";
+    //imgTag.height = "25px";
+    msgListTag.appendChild(imgTag);
+
+    var container1 = document.createElement("div");
+    container1.className = "size-207";
+    container1.style.paddingLeft = "0";
+    container1.style.width = "calc(100% - 130px)";
+
+    var container2 = document.createElement("div");
+    container2.classList.add("flex-w", "flex-sb-m", "p-b-17");
+
+    var senderTag = document.createElement("span");
+    senderTag.classList.add("mtext-107", "cl2", "p-r-20");
+    senderTag.style.fontSize = "25px";
+    senderTag.textContent = data["sender"];
+
+    var timeTag = document.createElement("div");
+    timeTag.className = "timestamp";
+    timeTag.textContent = data.timestamp;
+
+    var priceTag = document.createElement("span");
+    priceTag.className = "tag";
+    priceTag.style.fontSize = "18px";
+    priceTag.textContent = "₹ " + data["price"];
+
+    senderTag.appendChild(timeTag);
+
+    container2.appendChild(senderTag);
+    container2.appendChild(priceTag);
+
+    container1.appendChild(container2);
+
+    container.appendChild(msgListTag);
+    container.appendChild(container1);
+
+    document
+      .querySelector(".my-main")
+      .insertBefore(container, document.querySelector(".my-main").firstChild);
+    highestBidder = data["id"];*/
+  }
+  /*==================================================================
+   */
+
+  var deadline = "{{ deadline|date:'M j, Y G:i:s' }}";
+  console.log(deadline);
+
+  // Set the date we're counting down to
+  var countDownDate = new Date(deadline).getTime();
+
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="demo"
+    document.getElementById("demo").innerHTML =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+    // If the count down is finished, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      document.querySelector(".chat-message-submit").disabled = true;
+      document.getElementById("demo").innerHTML = "0d 0h 0m 0s";
+      if (highestBidder == parseInt("{{request.user.id}}")) {
+        document.getElementById("result-image").src =
+          "{% static 'images/winner.svg' %}";
+        if ("{{item.buyer}}" != "None") {
+          document.getElementById("billing-form").style.opacity = 0;
+          document.getElementById("billing-form").style.width = 0;
+          document.getElementById("billing-form").style.height = 0;
+
+          document.querySelector(".delivery").textContent =
+            "{{item.item_name}} is added to your inventory.";
+        } else {
+          chatSocket.send(
+            JSON.stringify({
+              command: "new_item",
+              from: "{{user.email}}",
+              auction_id: roomName
+            })
+          );
+        }
+      } else {
+        console.log("{% static 'images/empty.svg' %}");
+        document.getElementById("result-image").src =
+          "{% static 'images/empty.svg' %}";
+        document.getElementById("result-message").textContent =
+          "Better luck next time!";
+        document.querySelector(".delivery").textContent =
+          "Don't worry, there's always other auctions happening.";
+        var exploreButton = document.createElement("button");
+        exploreButton.classList.add(
+          "flex-c-m",
+          "stext-101",
+          "cl0",
+          "size-101",
+          "bg1",
+          "bor1",
+          "hov-btn1",
+          "p-lr-15",
+          "trans-04"
+        );
+        exploreButton.textContent = "Explore auctions";
+        document
+          .getElementById("result-container")
+          .insertBefore(
+            exploreButton,
+            document.getElementById("result-container").lastChild
+          );
+        document.getElementById("billing-form").style.opacity = 0;
+        document.getElementById("billing-form").style.width = 0;
+        document.getElementById("billing-form").style.height = 0;
+
+        document.getElementById("result-socials").style.opacity = 0;
+        document.getElementById("result-socials").style.width = 0;
+        document.getElementById("result-socials").style.height = 0;
+        document.getElementById("result-socials").style.margin = 0;
+        document.getElementById("result-socials").style.padding = 0;
+      }
+      $(".js-result-modal").addClass("show-result-modal");
+
+      //alert("Auctions over!");
+    }
+  }, 1000);
+
+  $(".js-hide-result-modal").on("click", function() {
+    $(".js-result-modal").removeClass("show-result-modal");
+  });
 </script>
+
 {% endblock script %}

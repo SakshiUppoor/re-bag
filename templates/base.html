@@ -155,7 +155,7 @@
               <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
                 <div
                   class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart"
-                  data-notify="2"
+                  data-notify="2" id="cart-no"
                 >
                   <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
@@ -195,7 +195,7 @@
           <div class="flex-c-m h-full p-lr-10 bor5">
             <div
               class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart"
-              data-notify="2"
+              data-notify="2" id="cart-no"
             >
               <i class="zmdi zmdi-shopping-cart"></i>
             </div>
@@ -458,9 +458,10 @@
 
         <div class="header-cart-content flex-w js-pscroll">
           <ul class="header-cart-wrapitem w-full">
+          {% for item in request.user.buyer.all %}
             <li class="header-cart-item flex-w flex-t m-b-12">
               <div class="header-cart-item-img">
-                <img src="{% static 'images/item-cart-01.jpg' %}" alt="IMG" />
+                <img src="{{item.item_images.first.image.url}}" alt="IMG" />
               </div>
 
               <div class="header-cart-item-txt p-t-8">
@@ -468,57 +469,20 @@
                   href="#"
                   class="header-cart-item-name m-b-18 hov-cl1 trans-04"
                 >
-                  White Shirt Pleat
+                  {{item.item_name}}
                 </a>
 
                 <span class="header-cart-item-info">
-                  1 x $19.00
+                  ₹ <span class="cart-item-price">{{item.current_price}}</span>
                 </span>
               </div>
             </li>
-
-            <li class="header-cart-item flex-w flex-t m-b-12">
-              <div class="header-cart-item-img">
-                <img src="{% static 'images/item-cart-02.jpg' %}" alt="IMG" />
-              </div>
-
-              <div class="header-cart-item-txt p-t-8">
-                <a
-                  href="#"
-                  class="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                >
-                  Converse All Star
-                </a>
-
-                <span class="header-cart-item-info">
-                  1 x $39.00
-                </span>
-              </div>
-            </li>
-
-            <li class="header-cart-item flex-w flex-t m-b-12">
-              <div class="header-cart-item-img">
-                <img src="{% static 'images/item-cart-03.jpg' %}" alt="IMG" />
-              </div>
-
-              <div class="header-cart-item-txt p-t-8">
-                <a
-                  href="#"
-                  class="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                >
-                  Nixon Porter Leather
-                </a>
-
-                <span class="header-cart-item-info">
-                  1 x $17.00
-                </span>
-              </div>
-            </li>
+          {% endfor %}
           </ul>
 
           <div class="w-full">
             <div class="header-cart-total w-full p-tb-40">
-              Total: $75.00
+              Total: ₹ <span class="cart-total">75.00</span> 
             </div>
 
             <div class="header-cart-buttons flex-w w-full">
@@ -655,6 +619,17 @@
           ps.update();
         });
       });
+    </script>
+    <!--===============================================================================================-->
+    <script>
+      updateTotal();
+      function updateTotal() {
+        var sum = 0;
+        $('.cart-item-price').each(function(){
+            sum += parseInt($(this).text());  // Or this.innerHTML, this.innerText
+        });
+        $(".cart-total").html(sum);
+      }
     </script>
     <!--===============================================================================================-->
     <script src="{% static 'js/main.js' %}"></script>
