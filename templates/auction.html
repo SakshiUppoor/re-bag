@@ -26,7 +26,7 @@
           <div
             class="flex-w flex-t p-b-68"
             style="padding:10px 0 0 0; vertical-align: middle; cursor:pointer;"
-          >
+            >
             <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
               <img src="{{item.seller.image.url}}" alt="Avatar" height="40px" />
             </div>
@@ -273,7 +273,7 @@
         <img src="{% static 'images/icons/icon-close.png' %}" alt="CLOSE" />
       </button>
 
-      <div class="row">
+      <div class="row" style="align-items:center;">
         <div class="col-md-6 col-lg-7 p-b-30">
           <div class="p-l-25 p-r-30 p-lr-0-lg">
             <div class="wrap-slick3 flex-sb flex-w">
@@ -302,6 +302,7 @@
 
         <div class="col-md-6 col-lg-5 p-b-30">
           <div class="p-r-50 p-t-5 p-lr-0-lg">
+          <div class="row" style="align-items: center; justify-content: space-between;">
             <h4
               class="mtext-105 cl2 js-name-detail p-b-14"
               style="font-size:40px; font-weight:700;"
@@ -309,10 +310,43 @@
               {{item.item_name}}
             </h4>
 
-            <span class="mtext-106 cl2" style="font-weight: 400;">
-              Current Price: ₹ {{item.current_price}}
+            <span class="mtext-106 cl2" style="font-weight: 400; font-size:25px; margin: 0 auto;">
+              ₹ {{item.current_price}}
             </span>
+          </div>
+          <div
+            class="flex-w flex-t p-b-68"
+            style="padding:10px 0 0 0; vertical-align: middle; cursor:pointer;"
+            >
+            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+              <img src="{{item.seller.image.url}}" alt="Avatar" height="40px" />
+            </div>
 
+            <div class="size-207">
+              <div
+                class="flex-w flex-sb-m p-b-17"
+                style="justify-content: normal; padding-bottom:7px !important;"
+              >
+                <span
+                  class="mtext-107 cl2 p-r-20 seller"
+                  style="font-size:20px;"
+                >
+                  {{item.seller.first_name}} {{item.seller.last_name}}
+                </span>
+
+                <span class="fs-18 cl11">
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star-half"></i>
+                  <i class="zmdi zmdi-star-outline"></i>
+                </span>
+              </div>
+              <p>
+                <span class="tag">Seller</span>
+              </p>
+            </div>
+          </div>
             <p class="stext-102 cl3 p-t-23">
               {{item.item_description |truncatechars:140}}
               {% if item.item_description|length > 140 %}<a href="#">Read More</a>{% endif %}
