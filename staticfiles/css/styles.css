@@ -1,0 +1,129 @@
+.my-main-container {
+  margin: 5px 0;
+}
+
+.my-main {
+  /*background: #f2f2f2;*/
+  margin-right: 10px;
+  height: 100%;
+}
+
+.pdp__condition-slider {
+  padding: 15px 0;
+  margin: 25px 0 5px;
+  border-top: 3px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pdp__condition-item--selected {
+  color: #000;
+}
+.pdp__condition-item {
+  font-family: "MaisonNeue-Book", Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  color: #767676;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+}
+.pdp__condition-item--selected:before {
+  background-color: #000;
+  content: "";
+  position: absolute;
+  display: block;
+  width: 3px;
+  height: 21px;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: -26px auto 0;
+}
+
+.tag {
+  background: #717fe0ff;
+  color: #fff;
+  padding: 5px 15px;
+  font-family: Poppins-Medium;
+  font-size: 13px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+.zmdi {
+  font-size: 1.2em !important;
+}
+
+.seller {
+  transition-duration: 0.5s;
+}
+
+.seller:hover {
+  color: #717fe0ff;
+}
+
+.timestamp {
+  color: #a0a0a0;
+  font-size: 15px;
+}
+
+.window-header {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.control {
+  justify-content: center;
+}
+
+/*========================================================
+[ result-modal ]*/
+.wrap-result-modal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 9000;
+  overflow: auto;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay-result-modal {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.8;
+}
+
+.show-result-modal {
+  visibility: visible;
+  opacity: 1;
+}
+
+.delivery {
+  padding-bottom: 20px;
+}
+
+button:disabled,
+button[disabled] {
+  background: #767676;
+}

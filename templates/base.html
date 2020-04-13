@@ -121,7 +121,7 @@
                 </li>
 
                 <li>
-                  <a href="product.html">Shop</a>
+                  <a href="{% url 'shop' %}">Shop</a>
                 </li>
 
                 <li class="label1" data-label1="hot">
@@ -226,7 +226,7 @@
           </li>
 
           <li>
-            <a href="product.html">Shop</a>
+            <a href="{% url 'shop' %}">Shop</a>
           </li>
 
           <li>
@@ -511,8 +511,8 @@
     <!--===============================================================================================-->
     <script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
     <!--===============================================================================================-->
-    <script src="{% static 'vendor/bootstrap/js/popper.js"' %}></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js"' %}></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <!--===============================================================================================-->
     <script src="{% static 'vendor/select2/select2.min.js ' %}"></script>
     <script>
@@ -638,4 +638,180 @@
   
 {% block script %}
 {% endblock script %}
+<!-- modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+  <div class="overlay-modal1 js-hide-modal1"></div>
+
+  <div class="container">
+    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+      <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+        <img src="{% static 'images/icons/icon-close.png' %}" alt="CLOSE" />
+      </button>
+
+      <div class="row" style="align-items:center;">
+        <div class="col-md-6 col-lg-7 p-b-30">
+          <div class="p-l-25 p-r-30 p-lr-0-lg">
+            <div class="wrap-slick3 flex-sb flex-w">
+              <div class="wrap-slick3-dots"></div>
+              <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+              <div class="slick3 gallery-lb">
+                {% for image in item.item_images.all %}
+                <div class="item-slick3" data-thumb="{{image.image.url}}">
+                  <div class="wrap-pic-w pos-relative">
+                    <img src="{{image.image.url}}" alt="IMG-PRODUCT" />
+
+                    <a
+                      class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                      href="{{image.image.url}}"
+                    >
+                      <i class="fa fa-expand"></i>
+                    </a>
+                  </div>
+                </div>
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-5 p-b-30">
+          <div class="p-r-50 p-t-5 p-lr-0-lg">
+          <div class="row" style="align-items: center; justify-content: space-between;">
+            <h4
+              class="mtext-105 cl2 js-name-detail p-b-14"
+              style="font-size:40px; font-weight:700;"
+            >
+              {{item.item_name}}
+            </h4>
+
+            <span class="mtext-106 cl2" style="font-weight: 400; font-size:25px; margin: 0 auto;">
+              ₹ {{item.current_price}}
+            </span>
+          </div>
+          <div
+            class="flex-w flex-t p-b-68"
+            style="padding:10px 0 0 0; vertical-align: middle; cursor:pointer;"
+            >
+            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+              <img src="{{item.seller.image.url}}" alt="Avatar" height="40px" />
+            </div>
+
+            <div class="size-207">
+              <div
+                class="flex-w flex-sb-m p-b-17"
+                style="justify-content: normal; padding-bottom:7px !important;"
+              >
+                <span
+                  class="mtext-107 cl2 p-r-20 seller"
+                  style="font-size:20px;"
+                >
+                  {{item.seller.first_name}} {{item.seller.last_name}}
+                </span>
+
+                <span class="fs-18 cl11">
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star"></i>
+                  <i class="zmdi zmdi-star-half"></i>
+                  <i class="zmdi zmdi-star-outline"></i>
+                </span>
+              </div>
+              <p>
+                <span class="tag">Seller</span>
+              </p>
+            </div>
+          </div>
+            <p class="stext-102 cl3 p-t-23">
+              {{item.item_description |truncatechars:140}}
+              {% if item.item_description|length > 140 %}<a href="#">Read More</a>{% endif %}
+            </p>
+
+            <!--  -->
+            <div class="condition-widget">
+              <h4
+                class="mtext-105 cl2 p-b-14"
+                style="padding: 14px 0 0 0;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 20px;
+                font-weight: 600;"
+              >
+                Condition
+              </h4>
+              <ul class="pdp__condition-slider" style="margin-right: 25px">
+                <li
+                  class="pdp__condition-item {% if item.condition == '1' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Fair
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '2' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Good
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '3' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Very Good
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '4' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Great
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '5' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Excellent
+                </li>
+                <li
+                  class="pdp__condition-item {% if item.condition == '6' %}pdp__condition-item--selected{% endif %}"
+                >
+                  Pristine
+                </li>
+              </ul>
+            </div>
+            <!--  -->
+            <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+              <div class="flex-m bor9 p-r-10 m-r-11">
+                <a
+                  href="#"
+                  class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                  data-tooltip="Add to Wishlist"
+                >
+                  <i class="zmdi zmdi-favorite"></i>
+                </a>
+              </div>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Facebook"
+              >
+                <i class="fa fa-facebook"></i>
+              </a>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Twitter"
+              >
+                <i class="fa fa-twitter"></i>
+              </a>
+
+              <a
+                href="#"
+                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                data-tooltip="Google Plus"
+              >
+                <i class="fa fa-google-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </html>

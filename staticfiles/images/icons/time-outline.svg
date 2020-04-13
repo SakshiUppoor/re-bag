@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg834"
+   sodipodi:docname="time-outline.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata840">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>ionicons-v5-c</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs838" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview836"
+     showgrid="false"
+     inkscape:zoom="0.55795144"
+     inkscape:cx="-548.47788"
+     inkscape:cy="148.21386"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg834"
+     inkscape:snap-object-midpoints="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-center="false" />
+  <title
+     id="title828">ionicons-v5-c</title>
+  <path
+     inkscape:connector-curvature="0"
+     d="m 256.29472,29.65216 c -124.80018,0 -226.05315,101.25297 -226.05315,226.05315 0,124.80017 101.25297,226.05313 226.05315,226.05313 124.80017,0 226.05313,-101.25296 226.05313,-226.05313 0,-124.80018 -101.25296,-226.05315 -226.05313,-226.05315 z"
+     style="fill:none;stroke:#717fe0;stroke-width:50.80000305;stroke-miterlimit:7;stroke-dasharray:none;stroke-opacity:1"
+     id="path830" />
+  <g
+     id="g828"
+     transform="matrix(0.9687809,0,0,0.9687809,8.2868,7.6974)"
+     style="stroke-width:52.43703711;stroke-miterlimit:7;stroke-dasharray:none">
+    <polyline
+       transform="matrix(1.1960296,0,0,1.1960296,-50.183579,-50.183579)"
+       inkscape:transform-center-y="-87.966068"
+       inkscape:transform-center-x="-63.88686"
+       id="polyline832"
+       style="fill:none;stroke:#717fe0;stroke-width:43.84259144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:7;stroke-dasharray:none;stroke-opacity:1"
+       points="256 128 256 272 352 272" />
+  </g>
+</svg>
