@@ -1,8 +1,16 @@
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.urls import reverse
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from datetime import timedelta
 from .forms import *
+
 # Create your views here.
+
+User = get_user_model()
 
 
 def createProduct(request):
@@ -41,3 +49,52 @@ def room(request, room_name):
 
 def home(request):
     return render(request, "base.html")
+
+
+def register(request):
+
+    if request.method == 'POST':
+        f_name = request.POST['f_name']
+        l_name = request.POST['l_name']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if password1 == password2:
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'Email Taken')
+                return HttpResponseRedirect(reverse('register'))
+            else:
+                user = User.objects.create_user(
+                    first_name=f_name, last_name=l_name, email=email, password=password1)
+                user.save()
+                auth.login(request, user)
+                return redirect(reverse('home'))
+        else:
+            messages.info(request, 'Password not matching')
+            return HttpResponseRedirect(reverse('register'))
+
+    else:
+        return render(request, 'signup.html', {'page': 'signup'})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(email=email, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect(reverse('home'))
+        else:
+            messages.info(request, 'Username or password incorrect')
+            return redirect('login')
+    else:
+        return render(request, 'login.html', {'page': 'login'})
+
+
+def user_logout(request):
+    auth.logout(request)
+    return redirect(reverse('login'))
