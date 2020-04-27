@@ -57,7 +57,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Category(models.Model):
-    category = models.CharField(unique=True, max_length=30)
+    category = models.CharField(unique=True, max_length=30, primary_key=True)
+    def __str__(self):
+        return self.category
 
 
 class Item(models.Model):
@@ -79,9 +81,9 @@ class Item(models.Model):
     base_price = models.IntegerField(default=0.0)
     current_price = models.IntegerField(default=0.0)
     seller = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True, related_name='seller')
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name='items_to_sell')
     buyer = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True, related_name='buyer')
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name='items_bought')
     shipping_address = models.TextField(blank=True, null=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, blank=True, null=True)
@@ -99,10 +101,10 @@ class Image(models.Model):
 
 
 class Auction(models.Model):
-    time = models.DateTimeField(auto_now_add=False)
+    start =  models.DateTimeField(auto_now=False)
     item = models.OneToOneField(
         Item, on_delete=models.CASCADE, related_name="item")
-    cap_time = models.DateTimeField(auto_now_add=False)
+    cap_time =  models.DateTimeField(auto_now=False)
 
 
 class Message(models.Model):

@@ -7,28 +7,36 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from datetime import timedelta
 from .forms import *
-
+import datetime
+from django.utils import timezone
+from .models import *
 # Create your views here.
 
 User = get_user_model()
 
-
+@login_required(login_url='/login/')
 def createProduct(request):
     if request.method == 'POST':
         i = ItemForm(request.POST)
-        i.save()
+        print(i.errors)
+        item = i.save()
+        item.seller = request.user
+        print(item)
+        item.save()
         a = AuctionForm(request.POST)
-        a.save()
-    else:
-        form1 = ItemForm()
-        form2 = AuctionForm()
+        print(a.errors)
+        auction = a.save(commit=False)
+        auction.item = item
+        auction.save()
+    form1 = ItemForm()
+    form2 = AuctionForm()
 
-        context = {
-            'form1': form1,
-            'form2': form2,
-        }
+    context = {
+        'form1': form1,
+        'form2': form2,
+    }
 
-    return render(request, 'add_product.html', context)
+    return render(request, 'productForm.html', context)
 
 
 def room(request, room_name):
@@ -98,3 +106,62 @@ def user_login(request):
 def user_logout(request):
     auth.logout(request)
     return redirect(reverse('login'))
+def categoryShop(request, url_category):
+    categories= Category.objects.all()
+    current= timezone.now() 
+    print(url_category)
+    if url_category == "All Products":
+        items= Item.objects.all()
+    else:
+        items= Item.objects.filter(cat=url_category)
+    item_ids = items.values_list('id', flat=True)
+    relevant_auctions = Auction.objects.filter(item_id__in = item_ids, cap__gte = current)
+    ongoing= relevant_auctions.filter(start__lte = current)
+    upcoming = relevant_auctions.filter(start__gte = current)
+
+    
+    # auctions= Auction.objects.all()
+    # ongoing={}
+    # upcoming={}
+    # j=0
+    # k=0
+    # for i in auctions:
+    #     print(url_category,i.item.cat.category,i.item.cat.category==url_category)
+    #     if url_category =="All Products":
+    #         if i.start < current and i.cap > current:
+    #             ongoing[j]=i
+    #             j=j+1
+    #         elif i.start > current:
+    #             upcoming[k]=i
+    #             k=k+1
+    #     elif i.item.cat.category == url_category and url_category != "All Products":
+    #         if i.start < current and i.cap > current:
+    #             ongoing[j]=i
+    #             j=j+1
+    #         elif i.start > current:
+    #             upcoming[k]=i
+    #             k=k+1   
+    #     else:
+    #         print('noooooo') 
+    print(ongoing,upcoming)    
+    return render(request, "categoryShop.html", {'categories': categories, 'url_category': url_category,'upcoming':upcoming, 'ongoing':ongoing})
+
+
+def shop(request):
+    categories= Category.objects.all()
+    auction_items = Auction.objects.all()
+    ongoing = {}
+    upcoming = {}
+    j=0
+    k=0
+    current= timezone.now() 
+    for i in auction_items:
+        if i.start < current and i.cap > current:
+            ongoing[j]=i
+            j=j+1
+        elif i.start > current:
+            upcoming[k]=i
+            k=k+1
+    print(current)
+    print(upcoming, ongoing)
+    return render(request, "product.html", {'categories': categories, 'auction':auction_items, 'ongoing':ongoing, 'upcoming':upcoming, "current":current})

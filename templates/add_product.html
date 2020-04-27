@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/material-kit.min.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js" integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>"
+
   </head>
   <body>
     <div class="form-group bmd-form-group">
-      <label for="exampleInput1" class="bmd-label-floating"
-        >With Floating Label</label
-      >
-      <input type="email" class="form-control" id="exampleInput1" />
-      <span class="bmd-help"
-        >We'll never share your email with anyone else.</span
-      >
+      {{form1.as_p}}
+      {{form2.as_p}}
     </div>
   </body>
 </html>

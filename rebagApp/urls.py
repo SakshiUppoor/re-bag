@@ -6,6 +6,8 @@ from .views import (
     register,
     user_login,
     user_logout,
+    shop,
+    categoryShop
 )
 
 urlpatterns = [
@@ -15,4 +17,6 @@ urlpatterns = [
     path('signup/', register, name="register"),
     path('login/', user_login, name="login"),
     path('logout/', user_logout, name="logout"),
+    path('shop/', shop, name="shop"),
+    path('shop/<str:url_category>', categoryShop, name="categoryShop"),
 ]
