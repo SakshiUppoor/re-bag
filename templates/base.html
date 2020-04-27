@@ -1,7 +1,28 @@
 {% load static %}
+{% load crispy_forms_tags%}
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
+       <link rel="stylesheet" href=  
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+    <script src=  
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">  
+    </script>  
+        
+    <script src=  
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">  
+    </script>  
+        
+    <script src=  
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">  
+    </script> 
     <title>Home 02</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -94,6 +115,14 @@
         color: rgb(214, 214, 214);
         font-size: 15px;
       }
+      .btn-circle.btn-md { 
+            width: 50px; 
+            height: 50px; 
+            padding: 7px 10px; 
+            border-radius: 25px; 
+            font-size: 10px; 
+            text-align: center; 
+          }
     </style>
   </head>
   <body class="animsition">
@@ -112,7 +141,7 @@
             <div class="menu-desktop">
               <ul class="main-menu">
                 <li class="active-menu">
-                  <a href="index.html">Home</a>
+                  <a href="{% url 'addProduct' %}">Home</a>
                   <ul class="sub-menu">
                     <li><a href="index.html">Homepage 1</a></li>
                     <li><a href="home-02.html">Homepage 2</a></li>
@@ -144,6 +173,37 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m h-full">
+              <div class="flex-c-m h-full p-r-24">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
+                    <button type="button" class="btn btn-secondary btn-circle btn-md" data-toggle="modal" data-target="#exampleModalCenter"><h2>+</h2></button> 
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Add Product</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form method="POST">
+                              {% csrf_token %}
+                              {{form1|crispy}}
+                              {% csrf_token %}
+                              {{form2|crispy}}
+                              <div>
+                                <button class="btn btn-primary">Submit</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
               <div class="flex-c-m h-full p-r-24">
                 <div
                   class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search"
@@ -814,4 +874,10 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+document.getElementById("id_start").type="datetime-local";
+</script>
+<script type="text/javascript">
+document.getElementById("id_cap").type="datetime-local";
+</script>
 </html>

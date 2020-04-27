@@ -8,22 +8,22 @@ from .models import *
 # Create your views here.
 
 
-def createProduct(request):
-    if request.method == 'POST':
-        i = ItemForm(request.POST)
-        i.save()
-        a = AuctionForm(request.POST)
-        a.save()
-    else:
-        form1 = ItemForm()
-        form2 = AuctionForm()
+# def createProduct(request):
+#     if request.method == 'POST':
+#         i = ItemForm(request.POST)
+#         i.save()
+#         a = AuctionForm(request.POST)
+#         a.save()
+#     else:
+#         form1 = ItemForm()
+#         form2 = AuctionForm()
 
-        context = {
-            'form1': form1,
-            'form2': form2,
-        }
+#         context = {
+#             'form1': form1,
+#             'form2': form2,
+#         }
 
-    return render(request, 'add_product.html', context)
+#     return render(request, 'add_product.html', context)
 
 
 def room(request, room_name):
@@ -42,8 +42,10 @@ def room(request, room_name):
     })
 
 
-def home(request):
-    return render(request, "base.html")
+# def home(request):
+#     form1 = ProductForm()
+#     form2 = AuctionForm()
+#     return render(request, "base.html",{'form1': form1, 'form2': form2})
 
 def categoryShop(request, url_category):
     categories= Category.objects.all()
@@ -104,3 +106,25 @@ def shop(request):
     print(current)
     print(upcoming, ongoing)
     return render(request, "product.html", {'categories': categories, 'auction':auction_items, 'ongoing':ongoing, 'upcoming':upcoming, "current":current})
+
+def addProduct(request):
+    if request.method == 'POST':
+        d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "cat"]}
+        d2 = {key:request.POST[key] for key in ["start", "cap"]}
+        print(d1)
+        print(d2)
+        form1 = ProductForm(d1)
+        form2 = AuctionForm(d2)
+        print(form1.is_valid())
+        print(form2.is_valid())
+        if form1.is_valid() and form2.is_valid():
+            f1=form1.save(commit=False)
+            f1.seller = request.user
+            f1.save()
+            f2=form2.save(commit=False)
+            f2.item = f1.id
+            f2.save()
+    else:
+        form1 = ProductForm()
+        form2 = AuctionForm()
+    return render(request, 'base.html', {'form1': form1, 'form2': form2})
