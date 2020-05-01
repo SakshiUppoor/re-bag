@@ -83,6 +83,14 @@
   justify-content: center;
 }
 
+.live-badge {
+  background: #717fe0ff;
+  color: #fff;
+  border-radius: 10px;
+  padding: 5px 20px;
+  display: inline-block;
+}
+
 /*========================================================
 [ result-modal ]*/
 .wrap-result-modal {

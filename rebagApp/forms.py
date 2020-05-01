@@ -2,6 +2,9 @@ from django import forms
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 
 from .models import Item, Auction
+from django.forms import ModelForm, DateTimeInput
+from django.contrib.admin import widgets
+from django.forms import MultiWidget
 
 
 class ItemForm(forms.ModelForm):
@@ -9,6 +12,7 @@ class ItemForm(forms.ModelForm):
         model = Item
         fields = ['item_name', 'item_description', 'base_price', 'category', 'condition']
 
+#     # ...
 
 class AuctionForm(forms.ModelForm):
     start = forms.DateTimeField(

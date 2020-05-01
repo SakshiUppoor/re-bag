@@ -7,6 +7,8 @@ from django.core.validators import RegexValidator
 from django.db.models.signals import pre_save, post_save
 from django.utils.text import slugify
 from django.dispatch import receiver
+from django.utils import timezone
+
 
 
 class UserManager(BaseUserManager):
@@ -92,6 +94,34 @@ class Item(models.Model):
     def __str__(self):
         return self.item_name
 
+    @property
+    def auction_status(self):
+        today = timezone.now()
+        auction = self.auction
+        if auction.cap_time < today:
+            return "past"
+        elif auction.start > today:
+            return "upcoming"
+        else:
+            return "live" 
+    
+    def time_to_end(self):
+        today = timezone.now()
+        auction = self.auction
+        if auction.cap_time < today:
+            return 0
+        else:
+            return (auction.cap_time - today).total_seconds()
+
+    
+    def time_to_start(self):
+        today = timezone.now()
+        auction = self.auction
+        if auction.cap_time < today:
+            return 0
+        else:
+            return (today - auction.start_time).total_seconds()
+
 
 class Image(models.Model):
     image = models.ImageField(
@@ -103,7 +133,7 @@ class Image(models.Model):
 class Auction(models.Model):
     start =  models.DateTimeField(auto_now=False)
     item = models.OneToOneField(
-        Item, on_delete=models.CASCADE, related_name="item")
+        Item, on_delete=models.CASCADE, related_name="auction")
     cap_time =  models.DateTimeField(auto_now=False)
 
 
@@ -143,6 +173,8 @@ def create_slug(instance, new_slug=None):
 def pre_save_item_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
+    if kwargs.get("created"):
+        instance.current_price = instance.base_price
 
 
 @receiver(pre_save, sender=Message)

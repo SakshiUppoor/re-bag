@@ -38,7 +38,7 @@ def createProduct(request):
 
     return render(request, 'productForm.html', context)
 
-
+@login_required(login_url='/login/')
 def room(request, room_name):
     auction = Auction.objects.get(id=room_name)
     item = auction.item
@@ -55,8 +55,10 @@ def room(request, room_name):
     })
 
 
-def home(request):
-    return render(request, "base.html")
+# def home(request):
+#     form1 = ProductForm()
+#     form2 = AuctionForm()
+#     return render(request, "base.html",{'form1': form1, 'form2': form2})
 
 
 def register(request):
@@ -106,6 +108,7 @@ def user_login(request):
 def user_logout(request):
     auth.logout(request)
     return redirect(reverse('login'))
+
 def categoryShop(request, url_category):
     categories= Category.objects.all()
     current= timezone.now() 
@@ -113,9 +116,9 @@ def categoryShop(request, url_category):
     if url_category == "All Products":
         items= Item.objects.all()
     else:
-        items= Item.objects.filter(cat=url_category)
+        items= Item.objects.filter(category__category=url_category)
     item_ids = items.values_list('id', flat=True)
-    relevant_auctions = Auction.objects.filter(item_id__in = item_ids, cap__gte = current)
+    relevant_auctions = Auction.objects.filter(item_id__in = item_ids, cap_time__gte = current)
     ongoing= relevant_auctions.filter(start__lte = current)
     upcoming = relevant_auctions.filter(start__gte = current)
 
@@ -149,6 +152,19 @@ def categoryShop(request, url_category):
 
 def shop(request):
     categories= Category.objects.all()
+    items = list(Item.objects.all())
+    print(items)
+    live_items = []
+    upcoming_items = []
+    for item in items:
+        if item.auction_status == "live":
+            live_items.append(item)
+        elif item.auction_status == "upcoming":
+            upcoming_items.append(item)
+    live_items.sort(key=Item.time_to_end, reverse=True)
+    print(live_items)
+    print(items)
+    """
     auction_items = Auction.objects.all()
     ongoing = {}
     upcoming = {}
@@ -156,7 +172,7 @@ def shop(request):
     k=0
     current= timezone.now() 
     for i in auction_items:
-        if i.start < current and i.cap > current:
+        if i.start < current and i.cap_time > current:
             ongoing[j]=i
             j=j+1
         elif i.start > current:
@@ -165,3 +181,44 @@ def shop(request):
     print(current)
     print(upcoming, ongoing)
     return render(request, "product.html", {'categories': categories, 'auction':auction_items, 'ongoing':ongoing, 'upcoming':upcoming, "current":current})
+    """
+    return render(request, "product.html", {'categories': categories,'items':items})
+
+def addProduct(request):
+    if request.method == 'POST':
+        d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "cat"]}
+        d2 = {key:request.POST[key] for key in ["start", "cap"]}
+        print(d1)
+        print(d2)
+        form1 = ItemForm(d1)
+        form2 = AuctionForm(d2)
+        print(form1.is_valid())
+        print(form2.is_valid())
+        if form1.is_valid() and form2.is_valid():
+            f1=form1.save(commit=False)
+            f1.seller = request.user
+            f1.save()
+            f2=form2.save(commit=False)
+            f2.item = f1.id
+            f2.save()
+    else:
+        form1 = ItemForm()
+        form2 = AuctionForm()
+    return render(request, 'home.html', {'form1': form1, 'form2': form2})
+
+def home(request):
+    print("helloooooooooooooooooooooooooooooooooo")
+    items = Item.objects.all()
+    feature1 = items[0]
+    feature2 = items[1]
+    feature3 = items[2]
+    categories = Category.objects.all()
+    print("!!!!!!!!!!!!!!!!!",feature3.item_images.first().image.url)
+    context = {
+        'first':feature1,
+        'second':feature2,
+        'third':feature3,
+        'items':items,
+        'categories':categories,
+    }
+    return render(request, 'home.html', context)
