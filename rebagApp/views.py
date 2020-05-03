@@ -186,8 +186,8 @@ def shop(request):
 
 def addProduct(request):
     if request.method == 'POST':
-        d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "cat"]}
-        d2 = {key:request.POST[key] for key in ["start", "cap"]}
+        d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "category"]}
+        d2 = {key:request.POST[key] for key in ["start", "cap_time"]}
         print(d1)
         print(d2)
         form1 = ItemForm(d1)
@@ -204,21 +204,30 @@ def addProduct(request):
     else:
         form1 = ItemForm()
         form2 = AuctionForm()
-    return render(request, 'home.html', {'form1': form1, 'form2': form2})
+    image={}
+    products = Item.objects.filter(seller = request.user.id)
+    for p in products:
+        image[p.id]=Image.objects.get(item = p.id).image.url
+    print(image)
+    status = Item.STATUS
+    return render(request, 'shoping-cart.html', {'form1': form1, 'form2': form2, 'products':products, 'status':status, 'image':image})
 
 def home(request):
     print("helloooooooooooooooooooooooooooooooooo")
     items = Item.objects.all()
-    feature1 = items[0]
-    feature2 = items[1]
-    feature3 = items[2]
-    categories = Category.objects.all()
-    print("!!!!!!!!!!!!!!!!!",feature3.item_images.first().image.url)
-    context = {
-        'first':feature1,
-        'second':feature2,
-        'third':feature3,
-        'items':items,
-        'categories':categories,
-    }
+    if items:
+        feature1 = items[0]
+        feature2 = items[1]
+        feature3 = items[2]
+        categories = Category.objects.all()
+        print("!!!!!!!!!!!!!!!!!",feature3.item_images.first().image.url)
+        context = {
+            'first':feature1,
+            'second':feature2,
+            'third':feature3,
+            'items':items,
+            'categories':categories,
+        }
+    else:
+        context={}
     return render(request, 'home.html', context)

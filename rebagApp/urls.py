@@ -11,5 +11,6 @@ urlpatterns = [
     path('shop/', shop, name="shop"),
     path('shop/<str:url_category>', categoryShop, name="categoryShop"),
     path('', home, name="home"),
-    path('add/',addProduct, name="addProduct")
+    # path('add/',addProduct, name="addProduct"),
+    path('myproducts/',addProduct, name="addProduct"),
 ]
