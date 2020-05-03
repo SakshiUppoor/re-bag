@@ -77,6 +77,7 @@ def home(request):
         'third':feature3,
         'items':items,
         'categories':categories,
+        'cart': Item.objects.filter(buyer=request.user),
     }
     return render(request, 'home.html', context)
 
