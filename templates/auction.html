@@ -26,6 +26,8 @@
           <div
             class="flex-w flex-t p-b-68"
             style="padding:10px 0 0 0; vertical-align: middle; cursor:pointer;"
+            data-toggle="modal"
+          data-target="#myModal"
             >
             <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
               <img src="{{item.seller.image.url}}" alt="Avatar" height="40px" />
@@ -279,23 +281,20 @@
             <div class="wrap-slick3 flex-sb flex-w">
               <div class="wrap-slick3-dots"></div>
               <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-              <div class="slick3 gallery-lb">
-                {% for image in item.item_images.all %}
-                <div class="item-slick3" data-thumb="{{image.image.url}}">
-                  <div class="wrap-pic-w pos-relative">
-                    <img src="{{image.image.url}}" alt="IMG-PRODUCT" />
+              
+							<div class="slick3 gallery-lb">
+								{% for image in item.item_images.all %}
+									<div class="item-slick3" data-thumb="{{ image.image.url}}">
+										<div class="wrap-pic-w pos-relative">
+											<img src="{{ image.image.url}}" alt="IMG-PRODUCT">
 
-                    <a
-                      class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                      href="{{image.image.url}}"
-                    >
-                      <i class="fa fa-expand"></i>
-                    </a>
-                  </div>
-                </div>
-
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ image.image.url}}">
+												<i class="fa fa-expand"></i>
+											</a>
+										</div>
+									</div>
                 {% endfor %}
-              </div>
+							</div>
             </div>
           </div>
         </div>
@@ -439,6 +438,104 @@
     </div>
   </div>
 </div>
+
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div style="margin-top:120px; text-align:center;" class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+        <div class="row">
+            <div
+              class="p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm"
+            >
+              <div
+                class="flex-w flex-t p-b-68"
+                style="
+                  display: block;
+                  padding: 10px 0 0 0;
+                  vertical-align: middle;
+                  cursor: pointer;
+                "
+              >
+                <div
+                  style="
+                    height: 170px;
+                    width: 170px;
+                    text-align: center;
+                    margin: auto;
+                  "
+                  class="wrap-pic-s bor0 of-hidden m-r-18 m-t-6"
+                >
+                  <img src="{{user.image.url}}" alt="Avatar" height="40px" />
+                </div>
+
+                <div class="bor12" style="text-align: center;">
+                  <h4
+                    style="padding-top: 30px; font-size: 30px;"
+                    class="mtext-109 cl2"
+                  >
+                    {{user.first_name}} {{user.last_name}}
+                  </h4>
+                  <div
+                    class="flex-w flex-sb-m p-b-17"
+                    style="text-align: center; padding-bottom: 7px !important;"
+                  >
+                    <div style="margin: auto;" class="fs-18 cl11">
+                      <i class="zmdi zmdi-star"></i>
+                      <i class="zmdi zmdi-star"></i>
+                      <i class="zmdi zmdi-star"></i>
+                      <i class="zmdi zmdi-star-half"></i>
+                      <i class="zmdi zmdi-star-outline"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-w flex-t p-t-30 p-b-13">
+                <div style="display: contents;" class="size-208">
+                  <span style="margin: auto;" class="stext-110 cl2">
+                    <ion-icon name="mail-outline"></ion-icon>
+                  </span>
+                  <span style="margin: auto;" class="mtext-110 cl2">
+                    {{user.email}}
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex-w flex-t p-t-30 p-b-30">
+                <div style="display: contents;" class="size-208">
+                  <span style="margin: auto;" class="stext-110 cl2">
+                    <ion-icon name="person-outline"></ion-icon>
+                  </span>
+                  <span style="margin: auto;" class="mtext-110 cl2">
+                    Member since {{user.date_joined | timesince}}
+                  </span>
+                </div>
+              </div>
+              <a href="{% url 'profile' id=item.seller.id %}">
+              <button
+                style="display: inline-flex;"
+                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+                data-toggle="modal"
+                data-target="#myModal"
+              >
+                Go to profile
+              </button>
+              </a>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- Result Modal -->
 <div class="wrap-result-modal js-result-modal p-t-60 p-b-20">

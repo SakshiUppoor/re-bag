@@ -91,7 +91,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="{% static 'images/banner-04.jpg' %}" alt="IMG-BANNER">
 
-						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url 'shop' %}?q=Women" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Women
@@ -116,7 +116,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="{% static 'images/banner-05.jpg' %}" alt="IMG-BANNER">
 
-						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url 'shop' %}?q=Men" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Men
@@ -141,7 +141,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="{% static 'images/banner-07.jpg' %}" alt="IMG-BANNER">
 
-						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url 'shop' %}?q=Watches" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Watches
@@ -166,7 +166,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="{% static 'images/banner-08.jpg' %}" alt="IMG-BANNER">
 
-						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url 'shop' %}?q=Bags" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Bags
@@ -191,7 +191,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="{% static 'images/banner-09.jpg' %}" alt="IMG-BANNER">
 
-						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url 'shop' %}?q=Accessories" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Accessories
@@ -468,7 +468,7 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="{% url 'detail' slug=item.slug %}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									{{ item.item_name }}
 								</a>
 
@@ -619,23 +619,23 @@
 			<div class="p-t-40">
 				<div class="flex-c-m flex-w p-b-18">
 					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
+						<img src="{% static 'images/icons/icon-pay-01.png' %}" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
+						<img src="{% static 'images/icons/icon-pay-02.png' %}" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
+						<img src="{% static 'images/icons/icon-pay-03.png' %}" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
+						<img src="{% static 'images/icons/icon-pay-04.png' %}" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
+						<img src="{% static 'images/icons/icon-pay-05.png' %}" alt="ICON-PAY">
 					</a>
 				</div>
 

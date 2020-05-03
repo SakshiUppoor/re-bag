@@ -88,7 +88,7 @@ class Item(models.Model):
         User, on_delete=models.CASCADE, blank=True, null=True, related_name='items_bought')
     shipping_address = models.TextField(blank=True, null=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, blank=True, null=True)
+        Category, on_delete=models.CASCADE, blank=True, null=True, related_name="items")
     status = models.CharField(choices=STATUS, default="1", max_length=20)
 
     def __str__(self):
@@ -111,7 +111,7 @@ class Item(models.Model):
         if auction.cap_time < today:
             return 0
         else:
-            return (auction.cap_time - today).total_seconds()
+            return auction.cap_time - today
 
     
     def time_to_start(self):
@@ -120,7 +120,7 @@ class Item(models.Model):
         if auction.cap_time < today:
             return 0
         else:
-            return (today - auction.start_time).total_seconds()
+            return today - auction.start_time
 
 
 class Image(models.Model):

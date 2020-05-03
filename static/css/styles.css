@@ -41,13 +41,10 @@
 }
 
 .tag {
-  background: #717fe0ff;
-  color: #fff;
-  padding: 5px 15px;
-  font-family: Poppins-Medium;
-  font-size: 13px;
+  color: rgb(172, 172, 172);
+  font-family: Poppins-Regular;
+  font-size: 20px;
   line-height: 1.466667;
-  text-transform: uppercase;
   border-radius: 8px;
 }
 

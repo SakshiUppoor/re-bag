@@ -3,13 +3,15 @@ from .views import *
 
 urlpatterns = [
     # path('', createProduct, name="create_product"),
-    path('room/<str:room_name>', room, name="room"),
+    path('room/<slug:slug>', room, name="room"),
     #path('home/', home, name="home"),
     path('signup/', register, name="register"),
     path('login/', user_login, name="login"),
     path('logout/', user_logout, name="logout"),
     path('shop/', shop, name="shop"),
-    path('shop/<str:url_category>', categoryShop, name="categoryShop"),
+    path('cart/', cart, name="cart"),
     path('', home, name="home"),
-    path('add/',addProduct, name="addProduct")
+    path('add/',createProduct, name="addProduct"),
+    path('product/<slug:slug>',detail, name="detail"),
+    path('profile/<int:id>',profile, name="profile"),
 ]
