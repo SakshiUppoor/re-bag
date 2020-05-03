@@ -14,4 +14,6 @@ urlpatterns = [
     path('add/',createProduct, name="addProduct"),
     path('product/<slug:slug>',detail, name="detail"),
     path('profile/<int:id>',profile, name="profile"),
+    # path('add/',addProduct, name="addProduct"),
+    path('myproducts/',addProduct, name="addProduct"),
 ]

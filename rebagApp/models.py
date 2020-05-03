@@ -120,7 +120,7 @@ class Item(models.Model):
         if auction.cap_time < today:
             return 0
         else:
-            return today - auction.start_time
+            return today - auction.start
 
 
 class Image(models.Model):

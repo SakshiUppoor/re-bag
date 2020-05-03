@@ -89,6 +89,11 @@ def createProduct(request):
         print(i.errors)
         item = i.save()
         item.seller = request.user
+        item.current_price = item.base_price
+        image = request.FILES['image']
+        if image:
+            new_image = Image(image=image, item=item)
+            new_image.save()
         print(item)
         item.save()
         a = AuctionForm(request.POST)
@@ -132,8 +137,8 @@ def room(request, slug):
 
 def addProduct(request):
     if request.method == 'POST':
-        d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "cat"]}
-        d2 = {key:request.POST[key] for key in ["start", "cap"]}
+        d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "category"]}
+        d2 = {key:request.POST[key] for key in ["start", "cap_time"]}
         print(d1)
         print(d2)
         form1 = ItemForm(d1)
@@ -150,7 +155,13 @@ def addProduct(request):
     else:
         form1 = ItemForm()
         form2 = AuctionForm()
-    return render(request, 'add_product.html', {'form1': form1, 'form2': form2})
+    image={}
+    products = Item.objects.filter(seller = request.user.id)
+    for p in products:
+        image[p.id]=Image.objects.filter(item = p.id).first().image.url
+    print(image)
+    status = Item.STATUS
+    return render(request, 'shopping-cart.html', {'form1': form1, 'form2': form2, 'products':products, 'status':status, 'image':image})
 
 def shop(request):
     categories= Category.objects.all()

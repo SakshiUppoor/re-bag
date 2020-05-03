@@ -1,6 +1,5 @@
 from django import forms
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
-
 from .models import Item, Auction
 from django.forms import ModelForm, DateTimeInput
 from django.contrib.admin import widgets
@@ -44,7 +43,7 @@ class AuctionForm(forms.ModelForm):
 
     class Meta:
         model = Auction
-        fields = ['start', 'cap_time']
+        fields = [ 'start','cap_time', ]
 
 class UserForm(forms.ModelForm):
     first_name = forms.CharField(

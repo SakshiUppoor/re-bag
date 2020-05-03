@@ -84,6 +84,32 @@
                   </p>
                 </div>
               </div>
+			  
+				{% if item.auction_status != "past"%}
+					<h4	style="display: inline-block;"class="mtext-105 cl2 p-r-14"
+					style="
+						padding: 14px 0 0 0;
+						text-transform: uppercase;
+						letter-spacing: 2px;
+						font-size: 20px;
+						font-weight: 600;
+					"
+					>
+					{% if item.auction_status == "upcoming" %}
+					Auction starts in
+					</h4>
+					<h3 style="color:#717fe0; 
+						font-size: 20px; display: inline-block;"class="stext-102 cl3">
+					{{item.auction.start|timeuntil}}
+					{% else %}
+					Auction ends in
+					</h4>
+					<h3  style="color:#717fe0; 
+						font-size: 20px; display: inline-block;"class="stext-102 cl3">
+					{{item.auction.cap_time|timeuntil}}
+					{% endif %}
+					</h3>
+				{% endif %}
               <p class="stext-102 cl3 p-t-23">
                 {{item.item_description}} 
               </p>
