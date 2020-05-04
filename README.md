@@ -3,7 +3,7 @@
   <img src="https://imgur.com/S2gJ8ch.png" alt="Logo" height="80">
 
   <p align="center">
-    An online auctioning platform that provides a platform for sellers and prospective buyers from all over the world to interact.
+    A real-time auctioning platform that provides a platform for sellers and prospective buyers from all over the world to interact.
     <br />
     <a href="https://github.com/SakshiUppoor/re-bag"><strong>Explore the docs »</strong></a>
     <br />
