@@ -5,7 +5,7 @@
   <p align="center">
     An online auctioning platform that provides a platform for sellers and prospective buyers from all over the world to interact.
     <br />
-    <a href="https://github.com/SakshiUppoor/ticket-sauce"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/SakshiUppoor/re-bag"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     View Demo
