@@ -77,8 +77,10 @@ def home(request):
         'third':feature3,
         'items':items,
         'categories':categories,
-        'cart': Item.objects.filter(buyer=request.user),
+        'page':'home',
     }
+    if request.user.is_authenticated:
+        context['cart'] = Item.objects.filter(buyer=request.user)
     return render(request, 'home.html', context)
 
     
@@ -107,15 +109,18 @@ def createProduct(request):
     context = {
         'form1': form1,
         'form2': form2,
+        'page':'sell',
+        'cart': Item.objects.filter(buyer=request.user),
     }
-
     return render(request, 'productForm.html', context)
 
 def detail(request, slug):
     context = {
         'item':Item.objects.get(slug=slug),
-        'cart': Item.objects.filter(buyer=request.user),
+        'page':'shop',
     }
+    if request.user.is_authenticated:
+        context['cart'] = Item.objects.filter(buyer=request.user)
     return render(request, 'product-detail.html', context)
 
 @login_required(login_url='/login/')
@@ -135,6 +140,7 @@ def room(request, slug):
     })
 
 
+@login_required(login_url='/login/')
 def addProduct(request):
     if request.method == 'POST':
         d1 = {key:request.POST[key] for key in ["item_name", "item_description", "condition", "base_price", "category"]}
@@ -161,7 +167,9 @@ def addProduct(request):
         image[p.id]=Image.objects.filter(item = p.id).first().image.url
     print(image)
     status = Item.STATUS
-    return render(request, 'shopping-cart.html', {'form1': form1, 'form2': form2, 'products':products, 'status':status, 'image':image})
+    return render(request, 'shopping-cart.html', {'form1': form1, 'form2': form2, 'products':products, 'status':status, 'image':image, 'page':'sell',
+        'cart': Item.objects.filter(buyer=request.user),
+    })
 
 def shop(request):
     categories= Category.objects.all()
@@ -201,17 +209,21 @@ def shop(request):
         "object_list" : queryset,
         'categories':categories,
         'items':queryset,
-        'cart': Item.objects.filter(buyer=request.user),
         'pages':paginator.num_pages,
         'current': int(page),
         'query':query,
+        'page':'shop',
     }
+    if request.user.is_authenticated:
+        context['cart'] = Item.objects.filter(buyer=request.user)
     return render(request, "product.html", context)
 
 
+@login_required(login_url='/login/')
 def cart(request):
     context = {
         'cart': Item.objects.filter(buyer=request.user),
+        'page':'cart',
     }
     return render(request, "cart.html", context)
 
@@ -250,10 +262,11 @@ def profile(request, id):
         "object_list" : queryset,
         'categories':categories,
         'items':queryset,
-        'cart': Item.objects.filter(buyer=request.user),
         'pages':paginator.num_pages,
         'current': int(page),
     }
+    if request.user.is_authenticated:
+        context['cart'] = Item.objects.filter(buyer=request.user)
 
     if user == request.user:
         form = UserForm(instance = request.user)

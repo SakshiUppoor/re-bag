@@ -1,56 +1,39 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-
-	<div class="container">
-		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-				Home
-				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-			</a>
-
-			<a href="blog.html" class="stext-109 cl8 hov-cl1 trans-04">
-				Login
-				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-			</a>
-
-			<span class="stext-109 cl4">
-				Login To Bid!
-			</span>
-		</div>
-	</div>
-
-
 	<!-- Content page -->
-	<section class="bg0 p-t-52 p-b-20">
+<section class="bg0 p-t-20 p-b-20">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-lg-6">
-					<img src="images/login.svg" class="img-fluid m-l-100" alt="Responsive image" style="height:500px;">
+			<div class="bor10 row">
+				<div class="col-md-6 col-lg-6" style="background-image:url({% static 'images/clark-street-merc.jpg' %}); background-size:cover; background-position-x: right;">
 				</div>
-				<div class="col-md-6 col-lg-6 p-b-80 m-t-50 p-l-100">
+				<div class="col-md-6 col-lg-6 p-b-80 p-l-80 p-r-80">
 		 			<!--  -->
 
-						<div class="p-t-40">
+						<div class="p-t-80" style="text-align: center;">
 							<h5 class="mtext-113 cl2 p-b-12">
-								LOGIN!
+								Login
 							</h5>
-
 							<form method="POST", action="">
 							{% csrf_token %}
 								<!-- div class="bor19 m-b-20">
 									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="cmt" placeholder="Comment..."></textarea>
 								</div> -->
 
-								<div class="bor19 size-218 m-b-20" id="alignlogin">
+								<div class="bor19 m-b-20" id="alignlogin">
 									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="email" placeholder="Enter Email">
 								</div>
 
-								<div class="bor19 size-218 m-b-20" id="alignlogin">
+								<div class="bor19 m-b-20" id="alignlogin">
 									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="password" name="password" placeholder="Enter Password">
 								</div>
 
-								<button type="submit" name="login-submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04" id="alignlogin">
+
+								<button style="margin:auto;" type="submit" name="login-submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04" id="alignlogin">
 									Login
 								</button>
+								<div class="p-t-20">
+								<span class="m-l-20">Don't have an account?</span>
+								<a href="{% url 'register' %}" class="stext-102 cl2 hov-cl1 trans-04" style="width:40px;">Get started</a>
+								</div>
 							</form>
 					</div>
 				</div>

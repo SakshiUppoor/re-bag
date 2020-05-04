@@ -38,7 +38,7 @@
         <div class="wrap-menu-desktop">
           <nav class="limiter-menu-desktop p-l-45">
             <!-- Logo desktop -->
-            <a href="#" class="logo">
+            <a href="{% url 'home' %}" class="logo">
               <img
                 src="{% static 'images/icons/logo-01.png' %}"
                 alt="IMG-LOGO"
@@ -48,33 +48,36 @@
             <!-- Menu desktop -->
             <div class="menu-desktop">
               <ul class="main-menu">
-                <li class="active-menu">
+                <li 
+                {% if page == "home" %}
+                class="active-menu"
+                {% endif %}
+                >
                   <a href="{% url 'home' %}">Home</a>
-                  <ul class="sub-menu">
-                    <li><a href="index.html">Homepage 1</a></li>
-                    <li><a href="home-02.html">Homepage 2</a></li>
-                    <li><a href="home-03.html">Homepage 3</a></li>
-                  </ul>
                 </li>
 
-                <li>
-                  <a href="{% url 'shop' %}">Shop</a>
+                <li
+                {% if page == "shop" %}
+                class="active-menu"
+                {% endif %}
+                >
+                  <a href="{% url 'shop' %}">Buy</a>
                 </li>
 
-                <li class="label1" data-label1="hot">
-                  <a href="shoping-cart.html">Features</a>
+                <li
+                {% if page == "sell" %}
+                class="active-menu"
+                {% endif %}
+                >
+                  <a href="{% url 'myProducts' %}">Sell</a>
                 </li>
-
-                <li>
-                  <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                  <a href="about.html">About</a>
-                </li>
-
-                <li>
-                  <a href="contact.html">Contact</a>
+                
+                <li
+                {% if page == "cart" %}
+                class="active-menu"
+                {% endif %}
+                >
+                  <a href="{% url 'cart' %}">Cart</a>
                 </li>
               </ul>
             </div>
@@ -423,6 +426,9 @@
     <div class="col-md-6" style="margin: auto;">
 			<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
 						
+				<h3 class="p-b-20 ltext-103 cl5">
+					Add new product
+				</h3>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form1|crispy }}
