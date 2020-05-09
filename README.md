@@ -16,6 +16,28 @@
   </p>
 </p>
 
+## Install
+
+Creating and activating virtual environment
+
+    virtualenv venv
+    cd Scripts
+    activate
+
+Setup & install Redis server on Windows
+* [Linux](https://redis.io/topics/quickstart)
+* [Mac](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298)
+* [Windows](https://www.onlinetutorialspoint.com/spring-boot/setup-install-redis-server-on-windows-10.html)
+
+Start the Redis server 
+  
+Navigate back to the main folder. Installing requirements and making migrations
+
+    pip install -r requirements.txt
+    python manage.gy makemigrations
+    python manage.py migrate
+    python manage.py runserver
+
 ## Team
 * <a href="https://github.com/SakshiUppoor"><b>Sakshi Uppoor</b></a> - Full Stack & Design
 * <a href="https://github.com/SheelSanghvi"><b>Sheel Sanghvi</b></a> - Full Stack
